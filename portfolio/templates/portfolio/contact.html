@@ -1,0 +1,257 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Contact - {{ profile.name|default:site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<section
+    class="min-h-screen py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 transition-colors duration-500">
+    <div class="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+
+        <!-- Section Header -->
+        <div class="text-center mb-12 sm:mb-16 fade-in">
+            <h2
+                class="text-3xl sm:text-4xl mt-5 md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                {{ site_settings.site_name }}
+            </h2>
+            <p
+                class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed px-4">
+                {% if profile %}
+                {{ profile.short_bio|default:site_settings.site_description }}
+                {% else %}
+                {{ site_settings.site_description }}
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Connect With Me Section -->
+        <div class="bg-white/80 dark:bg-gray-800/80 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg mb-6 sm:mb-8 fade-in"
+            style="animation-delay: 0.2s;">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-white mb-3 sm:mb-4 text-center">Connect With
+                Me</h3>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+                {% if site_settings.linkedin_url %}
+                <a href="{{ site_settings.linkedin_url }}" target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-2 sm:p-3 rounded-lg sm:rounded-xl text-center font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm flex-1 min-w-[110px] max-w-[130px] hover:scale-105">
+                    <i data-lucide="linkedin" class="w-4 h-4 text-white"></i>
+                    <span>LinkedIn</span>
+                </a>
+                {% endif %}
+                {% if site_settings.github_url %}
+                <a href="{{ site_settings.github_url }}" target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-2 sm:p-3 rounded-lg sm:rounded-xl text-center font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm flex-1 min-w-[110px] max-w-[130px] hover:scale-105">
+                    <i data-lucide="github" class="w-4 h-4 text-white"></i>
+                    <span>GitHub</span>
+                </a>
+                {% endif %}
+                {% if site_settings.kaggle_url %}
+                <a href="{{ site_settings.kaggle_url }}" target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-green-500 to-green-700 text-white p-2 sm:p-3 rounded-lg sm:rounded-xl text-center font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm flex-1 min-w-[110px] max-w-[130px] hover:scale-105">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-white"></i>
+                    <span>Kaggle</span>
+                </a>
+                {% endif %}
+                {% if site_settings.whatsapp_url %}
+                <a href="{{ site_settings.whatsapp_url }}"
+                    target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-2 sm:p-3 rounded-lg sm:rounded-xl text-center font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm flex-1 min-w-[110px] max-w-[130px] hover:scale-105">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+                    <span>WhatsApp</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+
+            <!-- Left Column - Contact Info -->
+            <div class="lg:col-span-1 fade-in" style="animation-delay: 0.3s;">
+                <div
+                    class="bg-white/80 dark:bg-gray-800/80 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg">
+                    <h3
+                        class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-indigo-500"></i>
+                        Get In Touch
+                    </h3>
+
+                    <div class="space-y-3 sm:space-y-4">
+                        {% if site_settings.contact_email %}
+                        <a href="mailto:{{ site_settings.contact_email }}"
+                            class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-300 group cursor-pointer">
+                            <div
+                                class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/50 transition-colors flex-shrink-0">
+                                <i data-lucide="mail" class="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4
+                                    class="font-semibold text-gray-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm sm:text-base">
+                                    Email</h4>
+                                <p class="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base truncate">
+                                    {{ site_settings.contact_email }}</p>
+                                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Click to send me an
+                                    email</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if profile.phone %}
+                        <a href="tel:{{ profile.phone }}"
+                            class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-300 group cursor-pointer">
+                            <div
+                                class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/50 transition-colors flex-shrink-0">
+                                <i data-lucide="phone" class="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4
+                                    class="font-semibold text-gray-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm sm:text-base">
+                                    Phone</h4>
+                                <p class="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{{ profile.phone }}</p>
+                                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Click to call me
+                                    directly</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if profile.location %}
+                        <a href="https://maps.google.com/?q={{ profile.location|urlencode }}" target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-300 group cursor-pointer">
+                            <div
+                                class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/50 transition-colors flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4
+                                    class="font-semibold text-gray-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm sm:text-base">
+                                    Location</h4>
+                                <p class="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">{{ profile.location }}</p>
+                                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                                    {{ profile.location }}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        <div
+                            class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex-shrink-0">
+                                <i data-lucide="clock" class="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-800 dark:text-white text-sm sm:text-base">Response
+                                    Time</h4>
+                                <p class="text-gray-600 dark:text-gray-300 font-medium text-sm sm:text-base">
+                                    < 24 hours</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Usually
+                                            respond same day</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Contact Form -->
+            <div class="lg:col-span-2 fade-in" style="animation-delay: 0.4s;">
+                <div
+                    class="bg-white/80 dark:bg-gray-800/80 rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl p-4 sm:p-6 md:p-8 backdrop-blur-sm border border-gray-200 dark:border-gray-700">
+
+                    <!-- Email Button -->
+                    {% if site_settings.contact_email %}
+                    <a href="mailto:{{ site_settings.contact_email }}"
+                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 mb-6 hover:scale-105">
+                        <i data-lucide="mail" class="w-5 h-5 text-white"></i>
+                        <span>Send Email Directly</span>
+                    </a>
+                    {% endif %}
+
+                    <form id="contact-form" class="space-y-5" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-200 font-semibold mb-2">Name</label>
+                            <input type="text" name="name" required
+                                class="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Enter Your Name">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-200 font-semibold mb-2">Email</label>
+                            <input type="email" name="email" required
+                                class="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Enter your mail @example.com">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-200 font-semibold mb-2">Message</label>
+                            <textarea name="message" required rows="4"
+                                class="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                placeholder="Your message..."></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-300">
+                            Send Message
+                        </button>
+
+                        <div id="form-status" class="hidden text-center mt-4 text-sm font-medium"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message')
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        formStatus.classList.add('hidden');
+
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        };
+
+        try {
+            const response = await fetch('{% url "portfolio:contact_api" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                formStatus.textContent = result.message || '✅ Message sent successfully!';
+                formStatus.className = 'text-center mt-4 text-sm font-medium text-green-600 dark:text-green-400';
+                contactForm.reset();
+            } else {
+                formStatus.textContent = result.message || '❌ Failed to send message';
+                formStatus.className = 'text-center mt-4 text-sm font-medium text-red-600 dark:text-red-400';
+            }
+        } catch (error) {
+            formStatus.textContent = '⚠️ Error sending message. Please try again.';
+            formStatus.className = 'text-center mt-4 text-sm font-medium text-red-600 dark:text-red-400';
+        }
+
+        formStatus.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}About - {{ profile.name|default:site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<section class="min-h-screen py-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header Section -->
+        <div class="text-center mb-16 fade-in">
+            <div
+                class="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border mt-7 border-gray-100 dark:border-gray-700 mb-8">
+                <div class="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Professional Profile</span>
+                <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                About <span class="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">Me</span>
+            </h1>
+
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                {% if profile %}
+                {{ profile.headline|default:profile.short_bio }}
+                {% else %}
+                {{ site_settings.site_description }}
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-in" data-delay="0.2">
+            {% for stat in stats %}
+            <div
+                class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div
+                    class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <i data-lucide="code" class="w-6 h-6 text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ stat.number }}</h3>
+                <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">{{ stat.label }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ stat.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+
+            <!-- Left Column - Tabs -->
+            <div class="xl:col-span-2 space-y-8">
+
+                <!-- Tabs Navigation -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-2 shadow-lg border border-gray-100 dark:border-gray-700 fade-in"
+                    data-delay="0.3">
+                    <div class="grid grid-cols-3 gap-2">
+                        <button
+                            class="tab-btn active flex items-center justify-center gap-2 py-4 px-4 rounded-xl font-semibold transition-all duration-300"
+                            data-tab="skills">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                            <span class="hidden sm:block">Skills</span>
+                        </button>
+                        <button
+                            class="tab-btn flex items-center justify-center gap-2 py-4 px-4 rounded-xl font-semibold transition-all duration-300"
+                            data-tab="education">
+                            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            <span class="hidden sm:block">Education</span>
+                        </button>
+                        <button
+                            class="tab-btn flex items-center justify-center gap-2 py-4 px-4 rounded-xl font-semibold transition-all duration-300"
+                            data-tab="experience">
+                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                            <span class="hidden sm:block">Experience</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabs Content -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+
+                    <!-- Skills Tab -->
+                    <div id="skills-tab" class="tab-content">
+                        <div class="space-y-8">
+                            {% for category, skillList in skills.items %}
+                            <div class="space-y-4">
+                                <!-- Category Header -->
+                                <div
+                                    class="flex items-center gap-3 pb-3 border-b-2 border-gradient-to-r from-blue-500 to-purple-500">
+                                    <div class="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg">
+                                        <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ category }}</h3>
+                                    <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">{{ skillList|length }} skills</span>
+                                </div>
+
+                                <!-- Skills Grid -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {% for skill in skillList %}
+                                    <div class="group relative">
+                                        <!-- Skill Card -->
+                                        <div
+                                            class="p-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="font-semibold text-gray-800 dark:text-white">{{ skill.name }}</span>
+                                                <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full">{{ skill.level }}%</span>
+                                            </div>
+
+                                            <!-- Progress Bar -->
+                                            <div
+                                                class="relative w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5 overflow-hidden">
+                                                <div class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full skill-bar transition-all duration-1000 ease-out"
+                                                    style="width: 0%" data-width="{{ skill.level }}">
+                                                </div>
+                                                <!-- Shine Effect -->
+                                                <div
+                                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer">
+                                                </div>
+                                            </div>
+
+                                            <!-- Skill Level Badge -->
+                                            <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                {% if skill.level >= 90 %}
+                                                <span class="text-green-600 dark:text-green-400 font-semibold">⭐
+                                                    Expert</span>
+                                                {% elif skill.level >= 75 %}
+                                                <span class="text-blue-600 dark:text-blue-400 font-semibold">💎
+                                                    Advanced</span>
+                                                {% elif skill.level >= 60 %}
+                                                <span class="text-purple-600 dark:text-purple-400 font-semibold">🎯
+                                                    Intermediate</span>
+                                                {% else %}
+                                                <span class="text-gray-600 dark:text-gray-400 font-semibold">📚
+                                                    Learning</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Education Tab -->
+                    <div id="education-tab" class="tab-content hidden">
+                        <div class="space-y-6">
+                            {% for item in education %}
+                            <div
+                                class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                                    <i data-lucide="graduation-cap"
+                                        class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                                        <h4 class="font-bold text-gray-900 dark:text-white">{{ item.degree }}</h4>
+                                        <span
+                                            class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-medium">
+                                            {{ item.grade }}
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600 dark:text-gray-400 font-medium mb-1">{{ item.institution }}</p>
+                                    <p class="text-blue-600 dark:text-blue-400 text-sm font-semibold mb-3">{{ item.year }}</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        {% for highlight in item.highlights %}
+                                        <span
+                                            class="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-xs">
+                                            {{ highlight }}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Experience Tab -->
+                    <div id="experience-tab" class="tab-content hidden">
+                        <div class="space-y-6">
+                            {% for item in experience %}
+                            <div
+                                class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                                    <i data-lucide="briefcase" class="w-5 h-5 text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                                        <h4 class="font-bold text-gray-900 dark:text-white">{{ item.role }}</h4>
+                                        <span
+                                            class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
+                                            {{ item.type }}
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600 dark:text-gray-400 font-medium mb-1">{{ item.company }}</p>
+                                    <p class="text-blue-600 dark:text-blue-400 text-sm font-semibold mb-3">{{ item.period }}</p>
+                                    <div class="space-y-2">
+                                        {% for achievement in item.achievements %}
+                                        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                            <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                                            {{ achievement }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-8">
+
+                <!-- Profile Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 fade-in"
+                    data-delay="0.4">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-purple-500"></i>
+                        Professional Summary
+                    </h3>
+                    <div class="space-y-4 text-gray-600 dark:text-gray-400">
+                        {% if profile and profile.summary %}
+                        {% for paragraph in profile.summary.splitlines %}
+                        {% if paragraph %}
+                        <p>{{ paragraph }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- CTA Card -->
+                <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl">
+                    <h3 class="text-xl font-bold mb-3">Ready to Collaborate?</h3>
+                    <p class="mb-6 opacity-90">Let's work together to bring your ideas to life with modern technology
+                        solutions.</p>
+                    <div class="flex flex-col gap-3">
+                        <a href="{% url 'portfolio:projects' %}"
+                            class="w-full bg-white text-blue-600 text-center py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+                            View Projects
+                        </a>
+                        <a href="{% url 'portfolio:contact' %}"
+                            class="w-full bg-transparent border border-white text-white text-center py-3 px-6 rounded-xl font-semibold hover:bg-white/10 transition-colors">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resume Download -->
+                {% if site_settings.resume_file %}
+                <a href="{{ site_settings.resume_file.url }}" download
+                    class="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
+                    <div
+                        class="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="download" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white">Download Resume</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">PDF - Updated portfolio</p>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/about.js' %}?v=3"></script>
+{% endblock %}
